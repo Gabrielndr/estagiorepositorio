@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Compre Já</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row" style="margin:30px 0">
+                <div class="col-lg-3">
+                    <img src="img/logo.png" class="img-thumbnail">
+                </div>
+                <div class="col-lg-9">
+                    <h3>Nome do Produto</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6" id="form-container">
+
+                    <form id="step_1" class="form-step">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    Preencha seus dados para receber contato
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <fieldset>
+                                    <div class="row form-group">
+                                        <div class="col-lg-6">
+                                            <label>Nome Completo</label>
+                                            <input class="form-control" type="text" name="letras" id="nome" onkeypress="return soletras(event)" onpaste="return false">
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>Data de Nascimento</label>
+                                            <input class="form-control" type="date"name="nascimento" id="nascimento" value="2020-10-01">
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-lg-6">
+                                            <label>Email</label>
+                                            <input class="form-control" type="text" name="email">
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>Telefone</label>
+                                            <input class="form-control" type="text" name="telefone">
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-lg btn-info next-step validar" onclick='return validadata()'>Próximo Passo</button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form id="step_2" class="form-step" style="display:none">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    Preencha seus dados para receber contato
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                              <fieldset>
+                                
+                                    <div class="row form-group">
+                                        
+                                        <div class="col-lg-6">
+                                            <label>Região</label> <br>
+                                            <select id='estado' class="form-control">
+                                                <option value='' selected disabled>Selecione o estado</option>
+                                                <option>Sudeste</option>
+                                                <option>Centro-Oeste</option>
+                                                <option>Sul</option>
+                                                <option>Nordeste</option>
+                                                <option>Norte</option>
+                                            </select>
+                                            
+                                                
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <label>Unidade </label> (condiz com sua região)
+                                        <select id='reg-sudeste' style='display:none' class="form-control">
+                                            <option>São Paulo</option>
+                                            <option>Rio de Janeiro</option>
+                                            <option>Belo horizonte</option>
+                                        </select>
+                                        
+                                        <select id='reg-centro' style='display:none' class="form-control">
+                                            <option>Brasília</option>
+                                        </select>
+                                        
+                                        <select id='reg-nordeste' style='display:none' class="form-control">
+                                            <option>Salvador</option>
+                                            <option>Recife</option>
+                                        </select>
+
+                                        <select id='reg-norte' style='display:none' class="form-control">
+                                            <option>Não possui disponibildidade</option>
+                                        </select>
+
+                                        <select id='reg-sul' style='display:none' class="form-control">
+                                            <option>Porto Alegre</option>
+                                            <option>Curitiba</option>
+                                        </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-lg btn-info next-step">Enviar</button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </form>
+            
+
+                    <div id="step_sucesso" class="form-step" style="display:none">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    Obrigado pelo cadastro!
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                Em breve você receberá uma ligação com mais informações!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h1>Chamada interessante para o produto</h1>
+                    <h2>Mais uma informação relevante</h2>
+                </div>
+            </div>
+        </div>
+        <script>
+
+            function soletras(e){
+                key=e.keyCode || e.which;
+
+                teclado=String.fromCharCode(key).toLowerCase();
+
+                letras=" abcdefghijklmnopqrstuvwxyzãñçáéíóúõ";
+
+                especiais="8-37-38-46-164";
+
+                teclado_especial=false;
+
+                for(var i in especiais){
+
+                    if(key==especiais[i]){
+                         
+                        teclado_especial=true;break;
+                    }
+                }
+                
+                if (letras.indexOf(teclado) == -1 && !teclado_especial){
+                    return false;
+                }
+            }
+
+            function validadata(){
+                var data = document.getElementById("nascimento").value;
+                data = data.replace(/\//g, "-"); 
+                var data_array = data.split("-"); 
+                
+                if(data_array[0].length != 4){
+                    data = data_array[2]+"-"+data_array[1]+"-"+data_array[0]; 
+                }
+                
+                var hoje = new Date();
+                var nasc  = new Date(data);
+                var idade = hoje.getFullYear() - nasc.getFullYear();
+                var m = hoje.getMonth() - nasc.getMonth();
+                if (m < 0 || (m === 0 && hoje.getDate() < nasc.getDate())) idade--;
+                
+                if(idade < 18){
+                    alert("Pessoas menores de 18 não podem se cadastrar.");
+                    return false;
+                }
+                
+                if(idade > 39){
+                    alert("Pessoas maiores de 39 não podem se cadastrar.");
+                    return false;
+                }
+
+                if(idade >= 18 && idade <= 38){
+                     
+                    return true;
+                }
+                return false;
+            }
+
+            $(function () {
+
+            $('.validar').click(function (event) {
+                var nome = document.getElementById("nome").value;
+			    if(nome.length < 14 || nome.length > 40){
+				alert('Tamanho do nome invalido');
+                }
+            });
+
+            $('.next-step').click(function (event) {
+                 event.preventDefault();
+                $(this).parents('.form-step').hide().next().show();
+                    
+                });
+
+            });
+
+            let estado = document.getElementById("estado");
+            const value_elem_id = { 
+            'Sudeste':'reg-sudeste',
+            'Centro-Oeste':'reg-centro', 
+            'Sul':'reg-sul',
+            'Norte':'reg-norte', 
+            'Nordeste':'reg-nordeste'
+            };
+
+            estado.onchange = function(){
+                let valor = this.value;                    
+                let selects = Array.from(                   
+                document.getElementsByTagName('select')   
+                );
+                
+                selects.forEach(function(el){
+                    if(el.id != 'estado')  
+                        el.style.display='none';
+                    if(el.id == value_elem_id[valor] ) 
+                        el.style.display='block';       
+                });
+            }
+
+        </script>
+    </body>
+</html>
